@@ -3,10 +3,11 @@
 We often want to convert the format in which a data frame is structured, from wide to long format, or vice versa. Let's see some examples of how to do this:
 
 ```{r}
-d <- read.csv("unvoting.csv", stringsAsFactors=F)
+library(dplyr)
+d <- as_tibble(read.csv("unvoting.csv", stringsAsFactors=F))
 dd <- d[d$CountryAbb %in% c("HUN", "AUS") & d$Year %in% 2010:2012, 
         c("Year", "CountryAbb", "idealpoint")]
-
+dd
 # converting to wide format
 library(reshape2)
 (dc <- dcast(dd, CountryAbb ~ Year, value.var="idealpoint"))
